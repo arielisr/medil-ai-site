@@ -305,64 +305,125 @@ p {
   to { transform: translateX(50%); }
 }
 
-/* Narrow screens and portrait ratio */
-@media (max-width: 900px), (orientation: portrait) {
+
+.bg-portrait {
+  display: none;
+}
+
+.bg-landscape {
+  display: block;
+}
+
+@media screen and (orientation: portrait),
+screen and (max-aspect-ratio: 1/1),
+screen and (max-width: 900px) {
+
+  .bg-landscape {
+    display: none;
+  }
+
+  .bg-portrait {
+    display: block;
+  }
+
+}
+
+@media (max-width: 900px), (orientation: portrait), (max-aspect-ratio: 1/1) {
   .content-wrap {
-    left: 5vw;
-    right: 5vw;
-    bottom: 4vh;
+    left: 4vw;
+    right: 4vw;
+    top: auto;
+    bottom: 2.5vh;
     flex-direction: column;
     align-items: stretch;
-    gap: 14px;
+    gap: 8px;
   }
 
   .content {
     width: 100%;
-    padding: 18px 22px;
+    padding: 12px 16px;
+    border-radius: 18px;
+  }
+
+  .content.he {
+    order: 1;
   }
 
   .content.en {
     transform: none;
-    order: 1;
-  }
-
-  .content.he {
     order: 2;
   }
 
-  h1 { font-size: clamp(21px, 5vw, 28px); }
-  h2 { font-size: clamp(15px, 4vw, 21px); }
-  p { font-size: clamp(13px, 3.4vw, 17px); }
-
-  .globe-shine {
-    left: 22%;
-    top: 13%;
-    width: 58%;
-    height: 42%;
+  h1 {
+    margin-bottom: 6px;
+    font-size: clamp(17px, 4.2vw, 23px);
+    line-height: 1.05;
   }
 
-  .laptop-screen { display: none; }
+  h2 {
+    margin-bottom: 8px;
+    font-size: clamp(13px, 3.4vw, 18px);
+    line-height: 1.15;
+  }
+
+  p {
+    margin-bottom: 6px;
+    font-size: clamp(12px, 3vw, 15px);
+    line-height: 1.25;
+  }
+
+  .contact {
+    margin-top: 6px;
+    font-size: clamp(12px, 3vw, 15px);
+  }
+
+  .globe-shine {
+    left: 18%;
+    top: 6%;
+    width: 64%;
+    height: 44%;
+  }
+
+  .laptop-screen {
+    display: none;
+  }
 
   .phone-screen {
-    left: 67%;
-    bottom: 19%;
-    width: 22%;
-    height: 17%;
+    left: 66%;
+    bottom: 31%;
+    width: 24%;
+    height: 14%;
   }
 
   .dna-spin {
-    right: 18%;
-    top: 38%;
+    right: 17%;
+    top: 28%;
     width: 13%;
-    height: 16%;
+    height: 15%;
   }
 
   .heart-overlay {
-    left: 13%;
-    top: 27%;
-    width: 19vw;
-    height: 17vw;
+    left: 12%;
+    top: 23%;
+    width: 18vw;
+    height: 16vw;
   }
+}
+
+@media (max-height: 720px) and (max-width: 900px) {
+  .content-wrap {
+    bottom: 1.5vh;
+    gap: 6px;
+  }
+
+  .content {
+    padding: 10px 14px;
+  }
+
+  h1 { font-size: clamp(16px, 3.8vw, 21px); }
+  h2 { font-size: clamp(12px, 3vw, 16px); }
+  p { font-size: clamp(11px, 2.7vw, 14px); line-height: 1.2; }
+  .contact { font-size: clamp(11px, 2.7vw, 14px); }
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -373,10 +434,11 @@ p {
 
 <body>
 <section class="hero" aria-label="א.א. המפה - שירותי מיפוי ואינטרנט">
-  <picture>
-    <source srcset="AA hamapa fullscreen portrait.png" media="(max-aspect-ratio: 1/1)">
-    <img class="bg" src="AA hamapa fullscreen landscape.png" alt="פתרונות תוכנה, מובייל, אינטרנט ומיפוי למחקר רפואי ורפואה מותאמת אישית">
-  </picture>
+<img class="bg bg-landscape" src="AA hamapa fullscreen landscape.png"
+     alt="פתרונות תוכנה, מובייל, אינטרנט ומיפוי למחקר רפואי ורפואה מותאמת אישית">
+
+<img class="bg bg-portrait" src="AA hamapa fullscreen portrait.png"
+     alt="פתרונות תוכנה, מובייל, אינטרנט ומיפוי למחקר רפואי ורפואה מותאמת אישית">
 
   <div class="overlay">
     <div class="leaf-wind"></div>
@@ -403,7 +465,19 @@ p {
   </div>
 
   <main class="content-wrap">
-    <section class="content en">
+    <section class="content he">
+      <h1>א.א. המפה - שירותי מיפוי ואינטרנט</h1>
+      <h2>פתרונות תוכנה, מידע רפואי ובריאות דיגיטלית</h2>
+
+      <p>
+        פתרונות תוכנה למחקר רפואי, רפואה מנוהלת ורפואה מותאמת אישית.
+      </p>
+
+      <p>
+        החברה מתמחה בפיתוח כלים דיגיטליים ופתרונות מבוססי נתונים עבור ארגוני בריאות ואקדמיה.
+      </p>
+    </section>
+	<section class="content en">
       <h1>A.A. HAMAPA LTD</h1>
       <h2>Software, medical data and digital health solutions</h2>
 
@@ -420,18 +494,7 @@ p {
       </div>
     </section>
 
-    <section class="content he">
-      <h1>א.א. המפה - שירותי מיפוי ואינטרנט</h1>
-      <h2>פתרונות תוכנה, מידע רפואי ובריאות דיגיטלית</h2>
-
-      <p>
-        פתרונות תוכנה למחקר רפואי, רפואה מנוהלת ורפואה מותאמת אישית.
-      </p>
-
-      <p>
-        החברה מתמחה בפיתוח כלים דיגיטליים ופתרונות מבוססי נתונים עבור ארגוני בריאות ואקדמיה.
-      </p>
-    </section>
+    
   </main>
 </section>
 </body>
