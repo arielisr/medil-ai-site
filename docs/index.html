@@ -26,21 +26,51 @@ html, body {
   background: #031221;
 }
 
+/* Base Image Layer (Z-index 1) */
 .hero img.bg {
   position: absolute;
   inset: 0;
   width: 100%;
   height: 100%;
   object-fit: cover;
+  z-index: 1;
 }
 
+/* Background Video Layer (Z-index 2) - Hidden initially */
+.hero video.bg-video {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: 2;
+  opacity: 0; 
+  transition: opacity 1.5s ease-in-out; 
+}
+
+/* Fade in the video when ready */
+.hero video.bg-video.ready {
+  opacity: 1; 
+}
+
+/* CSS Animation Overlay (Z-index 3) */
 .overlay {
   position: absolute;
   inset: 0;
   pointer-events: none;
+  z-index: 3;
+  transition: opacity 1.5s ease-in-out; /* Matches video fade-in speed */
 }
 
-/* Text boxes */
+/* Disables animations and hides the static overlays once the video takes over */
+.hero.video-active .overlay {
+  opacity: 0;
+}
+.hero.video-active .overlay * {
+  animation: none !important;
+}
+
+/* Text boxes (Z-index 20) */
 .content-wrap {
   position: absolute;
   z-index: 20;
@@ -78,18 +108,7 @@ html, body {
   direction: ltr;
   text-align: center;
   display: inline-block;
-  width: auto;
   white-space: nowrap;
-}
-
-.contact {
-  display: block;
-  margin: 0;
-  padding: 0;
-  line-height: 1.45;
-  font-size: clamp(14px, 1.2vw, 18px);
-  direction: ltr;
-  text-align: center;
 }
 
 .content.he {
@@ -125,7 +144,6 @@ p {
   direction: ltr;
   text-align: center;
 }
-
 
 .contact a {
   color: #ffffff;
@@ -333,40 +351,10 @@ p {
   to { transform: translateX(50%); }
 }
 
-
-.bg-portrait {
-  display: none;
-}
-
-.bg-landscape {
-  display: block;
-}
-
+/* Media Queries */
 @media screen and (orientation: portrait),
 screen and (max-aspect-ratio: 1/1),
 screen and (max-width: 900px) {
-
-  .bg-landscape {
-    display: none;
-  }
-
-  .bg-portrait {
-    display: block;
-  }
-
-}
-
-@media screen and (orientation: portrait),
-screen and (max-aspect-ratio: 1/1),
-screen and (max-width: 900px) {
-
-  .bg-landscape {
-    display: none;
-  }
-
-  .bg-portrait {
-    display: block;
-  }
 
   .content-wrap {
     left: 4vw;
@@ -392,13 +380,13 @@ screen and (max-width: 900px) {
   }
 
   .content.contact {
-	  width: fit-content;
-	  max-width: 92vw;
-	  align-self: center;
-	  transform: none;
-	  order: 3;
-	  padding: 8px 14px;
-	}
+    width: fit-content;
+    max-width: 92vw;
+    align-self: center;
+    transform: none;
+    order: 3;
+    padding: 8px 14px;
+  }
 
   .content.en {
     transform: none;
@@ -485,12 +473,18 @@ screen and (max-width: 900px) {
 
 <body>
 <section class="hero" aria-label="א.א. המפה - שירותי מיפוי ואינטרנט">
-<img class="bg bg-landscape" src="AA hamapa fullscreen landscape.png"
-     alt="פתרונות תוכנה, מובייל, אינטרנט ומיפוי למחקר רפואי ורפואה מותאמת אישית">
 
-<img class="bg bg-portrait" src="AA hamapa fullscreen portrait.png"
-     alt="פתרונות תוכנה, מובייל, אינטרנט ומיפוי למחקר רפואי ורפואה מותאמת אישית">
+  <!-- Responsive Image Placeholder -->
+  <picture>
+    <source media="(orientation: portrait) or (max-aspect-ratio: 1/1) or (max-width: 900px)" srcset="AA hamapa fullscreen portrait.png">
+    <source media="(orientation: landscape)" srcset="AA hamapa fullscreen landscape.png">
+    <img class="bg" src="AA hamapa fullscreen landscape.png" alt="פתרונות תוכנה, מובייל, אינטרנט ומיפוי למחקר רפואי ורפואה מותאמת אישית">
+  </picture>
 
+  <!-- Video Background (Sources injected dynamically via JS) -->
+  <video id="heroVideo" class="bg-video" muted playsinline loop preload="auto"></video>
+
+  <!-- CSS Animation Overlay (Fades out when video plays) -->
   <div class="overlay">
     <div class="leaf-wind"></div>
     <div class="globe-shine"></div>
@@ -515,40 +509,74 @@ screen and (max-width: 900px) {
     <div class="pulse p4"></div>
   </div>
 
+  <!-- Text Content -->
   <main class="content-wrap">
 	<section class="content contact">
-<div class="contact">
-  <h2>Contact:</h2>
-  <a href="mailto:support@hamapa.co.il">support@hamapa.co.il</a>
-</div>
+      <div class="contact">
+        <h2>Contact:</h2>
+        <a href="mailto:support@hamapa.co.il">support@hamapa.co.il</a>
+      </div>
     </section>
 
     <section class="content he">
       <h1>א.א. המפה (2010) בע"מ</h1>
       <h2>פתרונות תוכנה, מידע רפואי ובריאות דיגיטלית</h2>
-
       <p>
         פתרונות תוכנה למחקר רפואי, רפואה מנוהלת ורפואה מותאמת אישית.
       </p>
-
       <p>
         החברה מתמחה בפיתוח כלים דיגיטליים ופתרונות מבוססי נתונים עבור ארגוני בריאות ואקדמיה.
       </p>
     </section>
+
 	<section class="content en">
       <h1>A.A. HAMAPA (2010) LTD</h1>
       <h2>Software, medical data and digital health solutions</h2>
-
       <p>
         Software solutions for digital health and personalized medicine.
       </p>
-
       <p>
         Digital tools and data-driven solutions for medical research and health organizations.
       </p>
     </section>
-    
   </main>
 </section>
+
+<script>
+  document.addEventListener("DOMContentLoaded", function() {
+    const video = document.getElementById("heroVideo");
+    const heroContainer = document.querySelector(".hero");
+    
+    // 1. Detect Screen Orientation
+    const isLandscape = window.matchMedia("(orientation: landscape) and (min-width: 901px) and (min-aspect-ratio: 1/1)").matches;
+    
+    // 2. Select the correct video file based on orientation
+    const videoSource = isLandscape ? "video_landscape.mp4" : "video.mp4";
+    
+    // 3. Inject the source into the video element
+    const sourceEl = document.createElement("source");
+    sourceEl.src = videoSource;
+    sourceEl.type = "video/mp4";
+    video.appendChild(sourceEl);
+    
+    // Force the browser to start downloading the newly injected source
+    video.load();
+
+    // 4. Wait for the video to buffer enough to play smoothly
+    video.addEventListener("canplaythrough", function() {
+      
+      // Attempt to play the video
+      video.play().then(() => {
+        // Once playback starts, add classes to fade in the video and fade out/disable the CSS overlays
+        video.classList.add("ready");
+        heroContainer.classList.add("video-active");
+      }).catch((error) => {
+        console.warn("Autoplay was prevented by the browser:", error);
+      });
+      
+    }, { once: true });
+  });
+</script>
+
 </body>
 </html>
