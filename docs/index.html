@@ -497,9 +497,9 @@ screen and (max-width: 900px) {
 <section class="hero" aria-label="MEDIL.AI">
 
   <picture>
-    <source media="(orientation: portrait) or (max-aspect-ratio: 1/1) or (max-width: 900px)" srcset="AA hamapa fullscreen portrait.png">
-    <source media="(orientation: landscape)" srcset="AA hamapa fullscreen landscape.png">
-    <img class="bg" src="AA hamapa fullscreen landscape.png" alt="MEDIL.AI drug information, clinical tools and digital health solutions">
+    <source media="(orientation: portrait) or (max-aspect-ratio: 1/1) or (max-width: 900px)" srcset="https://arielisr.github.io/medil-ai-site/AA hamapa fullscreen portrait.png">
+    <source media="(orientation: landscape)" srcset="https://arielisr.github.io/medil-ai-site/AA hamapa fullscreen landscape.png">
+    <img class="bg" src="https://arielisr.github.io/medil-ai-site/AA hamapa fullscreen landscape.png" alt="MEDIL.AI drug information, clinical tools and digital health solutions">
   </picture>
 
   <video id="heroVideo" class="bg-video" muted playsinline loop preload="auto"></video>
@@ -581,7 +581,7 @@ screen and (max-width: 900px) {
     const isLandscape = window.matchMedia("(orientation: landscape) and (min-width: 901px) and (min-aspect-ratio: 1/1)").matches;
     
     // 2. Select the correct video file based on orientation
-    const videoSource = isLandscape ? "video.mp4" : "video_portrait.mp4";
+    const videoSource = isLandscape ? "https://arielisr.github.io/medil-ai-site/video.mp4" : "https://arielisr.github.io/medil-ai-site/video_portrait.mp4";
     
     // 3. Inject the source into the video element
     const sourceEl = document.createElement("source");
