@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>medil.ai1 - Drug Information and Clinical Tools</title>
+<title>medil.ai - Drug Information and Clinical Tools</title>
 
 <style>
 * { box-sizing: border-box; }
@@ -379,18 +379,17 @@ p {
 screen and (max-aspect-ratio: 1/1),
 screen and (max-width: 900px) {
 
-  .content-wrap {
-    left: 4vw;
-    right: 4vw;
-    top: 52vh;
-    bottom: auto;
-    max-height: 46vh;
-    overflow-y: auto;
-    flex-direction: column;
-    align-items: stretch;
-    gap: 8px;
-    padding-bottom: 10px;
-  }
+.content-wrap {
+  position: absolute;
+  z-index: 20;
+  left: 4vw;
+  right: 4vw;
+  bottom: 6vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  pointer-events: auto;
+}
 
   .content {
     width: 100%;
@@ -530,28 +529,47 @@ screen and (max-width: 900px) {
   </div>
 
   <main class="content-wrap">
-	<section class="content contact">
+
+  <div style="display:flex;flex-direction:column;align-items:center;gap:14px;">
+
+    <section class="content en">
+      <h1>MEDIL.AI</h1>
+
+      <h2>
+        Drug Information, Clinical Tools and Digital Health
+      </h2>
+
+      <p>
+        Modern medical tools for healthcare professionals and patients.
+      </p>
+
+      <p>
+        AI-powered digital health solutions for decision-support.
+      </p>
+
+      <p style="margin-top:20px;">
+        <a href="https://app.medil.co.il"
+           style="
+             color:white;
+             font-weight:bold;
+             text-decoration:none;
+             border-bottom:1px solid rgba(255,255,255,.6);
+           ">
+          Install Medil App
+        </a>
+      </p>
+    </section>
+
+    <section class="content contact">
       <div class="contact">
-        <h2>Contact:</h2>
+        <h2>Contact</h2>
         <a href="mailto:support@medil.ai">support@medil.ai</a>
       </div>
     </section>
 
+  </div>
 
-	<section class="content en">
-      <h1>MEDIL.AI</h1>
-      <h2>Drug Information, Clinical Tools and Digital Health</h2>
-      <p>
-        Comprehensive medication information for healthcare professionals and patients.
-      </p>
-      <p>
-        Clinical calculators, decision-support tools and AI-powered digital health solutions.
-      </p>
-      <p>
-        <a href="https://app.medil.co.il" style="color:white;font-weight:bold;text-decoration:none;border-bottom:1px solid rgba(255,255,255,.6);">Visit Medil</a>
-      </p>
-    </section>
-  </main>
+</main>
 </section>
 
 <script>
